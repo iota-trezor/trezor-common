@@ -25,4 +25,11 @@ message Storage {
 	optional uint32 u2f_counter = 11;		// sequence number for u2f authentications
 	optional bool needs_backup = 12;		// seed is not backed up yet
 	optional uint32 flags = 13;			// device flags
+	optional uint32 iota_seed_index = 14;		// iota seed index
+	optional bool iota_privkey1_ready = 15;
+	optional uint32 iota_privkey1_index = 16;
+	optional string iota_privkey1 = 17;
+	optional bool iota_privkey2_ready = 18;
+	optional uint32 iota_privkey2_index = 19;
+	optional string iota_privkey2 = 20;
 }
