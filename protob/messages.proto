@@ -87,6 +87,10 @@ enum MessageType {
 	MessageType_IotaGetAddress = 75 [(wire_in) = true];
 	MessageType_IotaAddress = 76 [(wire_out) = true];
 	MessageType_IotaShowSeed = 77 [(wire_in) = true];
+	MessageType_IotaTxRequest = 78 [(wire_in) = true];
+	MessageType_IotaTxApproved = 79 [(wire_out) = true];
+	MessageType_IotaTxDetails = 80 [(wire_in) = true];
+	MessageType_IotaSignedTx = 81 [(wire_out) = true];
 	MessageType_DebugLinkDecision = 100 [(wire_debug_in) = true, (wire_tiny) = true];
 	MessageType_DebugLinkGetState = 101 [(wire_debug_in) = true];
 	MessageType_DebugLinkState = 102 [(wire_debug_out) = true];
@@ -938,8 +942,49 @@ message IotaAddress {
 
 /**
  * Show seed on the device
+ * @next Success
+ * @next Failure
  */
 message IotaShowSeed {
+}
+
+/**
+ * Computer requests to approve a transfer.
+ * @next IotaTxAck
+ * @next Failure
+ */
+message IotaTxRequest {
+	required string receiving_address = 1;		// Address to which the amount is send
+	required uint64 amount = 2;					// Amount of iota
+	required uint64 remainder = 3;				// Remaining amount (balance = amount + remainder)
+	optional uint32 seed_index = 4;				// Seed index from where to sent
+	optional uint32 remainder_index = 5;		// Seed index for the remaining balance
+	optional string tag = 6;					// Transaction tag, defaults to 'TREZOR'
+}
+
+/**
+ * Transaction is allowed.
+ * @next IotaTxDetails
+ * @next Failure
+ */
+message IotaTxApproved {
+}
+
+/**
+ * Send timestamp to initiate transaction signing.
+ * @next IotSignedTx
+ */
+message IotaTxDetails {
+	optional uint64 timestamp;					// Timestamp (although not enforced yet)
+}
+
+/**
+ * Transaction hash and signatures
+ */
+message IotaSignedTx {
+	required string bundlehash = 1;				// Bundle hash (hash of all transaction elements)
+	required string first_signature = 2;		// First signature (security level 1)
+	optional string second_signature = 3;		// Second signature (security level 2)		
 }
 
 /////////////////////////////////////////////////////////////
