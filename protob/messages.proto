@@ -975,7 +975,7 @@ message IotaTxApproved {
  * @next IotSignedTx
  */
 message IotaTxDetails {
-	optional uint64 timestamp;					// Timestamp (although not enforced yet)
+	optional uint64 timestamp = 1;					// Timestamp (although not enforced yet)
 }
 
 /**
