@@ -955,8 +955,8 @@ message IotaShowSeed {
  */
 message IotaTxRequest {
 	required string receiving_address = 1;		// Address to which the amount is send
-	required uint64 amount = 2;					// Amount of iota
-	required uint64 remainder = 3;				// Remaining amount (balance = amount + remainder)
+	required uint64 transfer_amount = 2;		// Amount of iota to be transferred
+	required uint64 balance = 3;				// Balance on the current address (to calculate remainder)
 	optional uint32 seed_index = 4;				// Seed index from where to sent
 	optional uint32 remainder_index = 5;		// Seed index for the remaining balance
 	optional string tag = 6;					// Transaction tag, defaults to 'TREZOR'
