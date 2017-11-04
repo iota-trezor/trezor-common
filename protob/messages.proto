@@ -960,6 +960,7 @@ message IotaTxRequest {
 	optional uint32 seed_index = 4;				// Seed index from where to sent
 	optional uint32 remainder_index = 5;		// Seed index for the remaining balance
 	optional string tag = 6;					// Transaction tag, defaults to 'TREZOR'
+	optional uint64 timestamp = 7;				// Timestamp (temporarily in initial request)
 }
 
 /**
