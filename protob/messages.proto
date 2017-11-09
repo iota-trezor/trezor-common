@@ -984,9 +984,10 @@ message IotaTxRequest {
 	required string receiving_address = 1;			// Address to which the amount is send
 	required uint64 transfer_amount = 2;			// Amount of iota to be transferred
 	required uint64 balance = 3;					// Balance on the current address (to calculate remainder)
-	optional uint32 input_address_counter = 4;		// Seed index from where to sent
-	optional uint32 remainder_address_counter = 5;	// Seed index for the remaining balance
-	optional string tag = 6;						// Transaction tag, defaults to 'TREZOR'
+    required uint64 request_timestamp = 4;			// Final transaction must be within certain time from here
+	optional uint32 input_address_counter = 5;		// Seed index from where to sent
+	optional uint32 remainder_address_counter = 6;	// Seed index for the remaining balance
+	optional string tag = 7;						// Transaction tag, defaults to 'TREZOR'
 }
 
 /**
@@ -1004,7 +1005,7 @@ message IotaTxApproved {
  * @next Failure
  */
 message IotaTxDetails {
-	required uint64 timestamp = 1;					// Timestamp (although not enforced yet)
+	required uint64 transaction_timestamp = 1;		// Timestamp of the transactions in the bundle
 }
 
 /**
